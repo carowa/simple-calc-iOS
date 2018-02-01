@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     var performingMath: Bool = false
     var operation: Int = 0
     var almostDone: Bool = true
-    var numberSeq: [Double] = []
+    var avgSum: Double = 0.0
+    var avgCount: Double = 1.0
     var count: Int = 1
     
     @IBOutlet weak var label: UILabel!
@@ -47,8 +48,15 @@ class ViewController: UIViewController {
                 label.text = "+"
             } else if sender.tag == 17 { //mod
                 label.text = "%"
-            } else if sender.tag == 19 {
+            } else if sender.tag == 19 { //count
                 label.text = "count"
+            } else if sender.tag == 20 { //fact
+                label.text = "!"
+            } else if sender.tag == 18 { //avg
+                print("I'm hereeeee")
+                label.text = "avg"
+                avgSum = avgSum + previousNum
+                avgCount = avgCount + 1.0
             }
             operation = sender.tag
             performingMath = true
@@ -64,16 +72,30 @@ class ViewController: UIViewController {
                 label.text = String(previousNum + numberOnScreen)
             } else if operation == 17 { //mod
                 label.text = String(previousNum - ((previousNum / numberOnScreen) * numberOnScreen))
-            } else if operation == 19 {
+            } else if operation == 18 {
+                label.text = String(avgSum / avgCount)
+            } else if operation == 19 { //count
                 label.text = String(count)
+            } else if operation == 20 { //factorial
+                if previousNum == 1.0 || previousNum == 0.0 {
+                    label.text = String(1)
+                } else {
+                    var product: Double = 1
+                    for i in 1...Int(previousNum) {
+                        product = product * Double(i)
+                    }
+                    label.text = String(product)
+                }
             }
-        } else if sender.tag == 11 {
-            label.text = nil
+        } else if sender.tag == 11 { //clear
+            label.text = ""
             previousNum = 0
             numberOnScreen = 0
             operation = 0
             performingMath = false
             count = 1
+            avgSum = 0.0
+            avgCount = 1.0
         }
     }
     
@@ -81,12 +103,6 @@ class ViewController: UIViewController {
         count = count + 1
         operation = sender.tag
         performingMath = true
-    }
-    
-    @IBAction func fact(_ sender: UIButton) {
-    }
-    
-    @IBAction func average(_ sender: UIButton) {
     }
     
     override func viewDidLoad() {
