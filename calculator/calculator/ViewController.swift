@@ -52,9 +52,8 @@ class ViewController: UIViewController {
                 label.text = "count"
             } else if sender.tag == 20 { //fact
                 label.text = "!"
-            } else if sender.tag == 18 { //avg
-                print("I'm hereeeee")
-                label.text = "avg"
+            } else if sender.tag == 30 { //avg
+                label.text = "~"
                 avgSum = avgSum + previousNum
                 avgCount = avgCount + 1.0
             }
@@ -117,4 +116,3 @@ class ViewController: UIViewController {
 
 
 }
-
